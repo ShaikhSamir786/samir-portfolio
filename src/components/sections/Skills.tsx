@@ -7,7 +7,7 @@ const skillCategories = [
   {
     name: "Backend",
     color: "primary",
-    skills: ["Node.js", "Python", "Go", "GraphQL", "REST APIs", "WebSockets"],
+    skills: ["Node.js", "GraphQL", "REST APIs", "WebSockets"],
   },
   {
     name: "Frontend",
@@ -17,12 +17,12 @@ const skillCategories = [
   {
     name: "Database",
     color: "destructive",
-    skills: ["PostgreSQL", "MongoDB", "Redis", "ElasticSearch", "TimescaleDB"],
+    skills: ["PostgreSQL", "MongoDB", "Redis", "ElasticSearch"],
   },
   {
     name: "DevOps",
     color: "primary",
-    skills: ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions"],
+    skills: ["Docker", "GitHub Actions"],
   },
 ];
 
@@ -83,14 +83,14 @@ export default function Skills() {
             <span className="text-primary">CONSTELLATION</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mt-4">
-            Interactive 3D visualization of my technology expertise. 
+            Interactive 3D visualization of my technology expertise.
             Drag to explore, hover for details.
           </p>
         </motion.div>
 
         {/* 3D Constellation */}
         <div className="mb-16 border-4 border-foreground bg-background relative overflow-hidden" style={{ boxShadow: "10px 10px 0px hsl(var(--primary))" }}>
-          <Suspense 
+          <Suspense
             fallback={
               <div className="h-[500px] flex items-center justify-center">
                 <div className="text-primary animate-pulse-glow">Loading 3D visualization...</div>
@@ -99,7 +99,7 @@ export default function Skills() {
           >
             <SkillsConstellation />
           </Suspense>
-          
+
           {/* Legend */}
           <div className="absolute bottom-4 left-4 flex flex-wrap gap-4 text-xs font-mono">
             <div className="flex items-center gap-2">

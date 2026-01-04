@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import TerminalEasterEgg from "@/components/terminal/TerminalEasterEgg";
+import SecretFeatureHint from "@/components/terminal/SecretFeatureHint";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 
 const queryClient = new QueryClient();
@@ -17,6 +18,7 @@ const App = () => (
       <Sonner />
       <ScrollProgress />
       <TerminalEasterEgg />
+      <SecretFeatureHint />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

@@ -1,0 +1,27 @@
+services:
+  # Development Service (Hot Reload)
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder # Use the builder stage conceptually or we can just use a node image directly for dev which is cleaner
+    image: samir-portfolio-dev
+    command: npm run dev -- --host
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+
+  # Production Service (Nginx)
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: samir-portfolio-prod
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production

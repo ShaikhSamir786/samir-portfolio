@@ -12,17 +12,23 @@ interface Skill {
 
 const skills: Skill[] = [
   { name: "Node.js", proficiency: 95, category: "backend", position: [-2, 1.5, 0] },
-  { name: "Python", proficiency: 88, category: "backend", position: [-1, 2, 1] },
   { name: "TypeScript", proficiency: 92, category: "frontend", position: [1, 1.5, -0.5] },
   { name: "React", proficiency: 90, category: "frontend", position: [2, 0.5, 0.5] },
   { name: "PostgreSQL", proficiency: 85, category: "database", position: [0, -1.5, 1] },
   { name: "MongoDB", proficiency: 82, category: "database", position: [-1.5, -1, 0.5] },
   { name: "Docker", proficiency: 88, category: "devops", position: [1.5, -0.5, -1] },
-  { name: "AWS", proficiency: 80, category: "devops", position: [0, 0, 2] },
   { name: "GraphQL", proficiency: 85, category: "backend", position: [-0.5, 1, -1.5] },
   { name: "Next.js", proficiency: 87, category: "frontend", position: [1, 1, 1.5] },
   { name: "Redis", proficiency: 78, category: "database", position: [-1, -0.5, -1] },
-  { name: "Kubernetes", proficiency: 75, category: "devops", position: [0.5, -1, -0.5] },
+  { name: "HTML", proficiency: 95, category: "frontend", position: [-1.8, -0.5, 1.5] },
+  { name: "CSS", proficiency: 95, category: "frontend", position: [1.8, -1.2, 0.5] },
+  { name: "JavaScript", proficiency: 95, category: "frontend", position: [0, 2.2, 0] },
+  { name: "Bootstrap", proficiency: 90, category: "frontend", position: [-2, -1.5, -1] },
+  { name: "Tailwind", proficiency: 95, category: "frontend", position: [2, 1, -1] },
+  { name: "Framer", proficiency: 92, category: "frontend", position: [0.5, -2, -1] },
+  { name: "Express", proficiency: 90, category: "backend", position: [2.2, 0, 0] },
+  { name: "NestJS", proficiency: 88, category: "backend", position: [-2.2, 0, 0] },
+
 ];
 
 const categoryColors: Record<string, string> = {
@@ -90,7 +96,7 @@ function SkillNode({ skill, onHover }: { skill: Skill; onHover: (skill: Skill | 
 function ConnectionLines({ skills }: { skills: Skill[] }) {
   const connections = useMemo(() => {
     const lines: { start: THREE.Vector3; end: THREE.Vector3; color: string }[] = [];
-    
+
     skills.forEach((skill, i) => {
       skills.slice(i + 1).forEach((otherSkill) => {
         // Connect skills in same category or adjacent positions
@@ -106,7 +112,7 @@ function ConnectionLines({ skills }: { skills: Skill[] }) {
         }
       });
     });
-    
+
     return lines;
   }, [skills]);
 
@@ -147,14 +153,14 @@ function Scene() {
       <ambientLight intensity={0.3} />
       <pointLight position={[10, 10, 10]} intensity={1} />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00ffff" />
-      
+
       <group ref={groupRef}>
         <ConnectionLines skills={skills} />
         {skills.map((skill) => (
           <SkillNode key={skill.name} skill={skill} onHover={setHoveredSkill} />
         ))}
       </group>
-      
+
       <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
     </>
   );

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { ExternalLink, Github, ArrowRight, Layers, Database, Server, Globe } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ExternalLink, Github, ArrowRight, Globe, Server, Database, Star, GitFork } from "lucide-react";
 
 interface Project {
   id: string;
@@ -9,74 +9,77 @@ interface Project {
   image: string;
   frontend: string[];
   backend: string[];
-  database: string;
-  metrics: {
-    uptime: string;
-    responseTime: string;
-    users?: string;
-  };
+  database?: string[];
+  repoName: string;
   github: string;
-  demo: string;
+  demo?: string;
   featured: boolean;
 }
 
 const projects: Project[] = [
   {
     id: "1",
-    title: "SCALABLE API GATEWAY",
-    description: "High-performance API gateway handling 10M+ requests/day with intelligent rate limiting, caching, and real-time analytics.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop",
-    frontend: ["React", "TypeScript", "TailwindCSS"],
-    backend: ["Node.js", "Express", "Redis"],
-    database: "PostgreSQL",
-    metrics: { uptime: "99.99%", responseTime: "45ms", users: "50K+" },
-    github: "https://github.com",
-    demo: "https://example.com",
+    title: "RAG PLATFORM",
+    description: "Retrieval Augmented Generation system for intelligent document querying and context-aware responses.",
+    image: "/img/Screenshot 2026-01-04 094500.png",
+    frontend: ["Next.js", "TypeScript"],
+    backend: ["Node.js", "Express"],
+    database: ["postgres", "timescaleDb", "MongoDB"],
+    repoName: "rag",
+    github: "https://github.com/ShaikhSamir786/rag",
     featured: true,
   },
   {
     id: "2",
-    title: "REAL-TIME COLLABORATION",
-    description: "WebSocket-powered collaborative editor with conflict-free replicated data types (CRDTs) for seamless multi-user editing.",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop",
-    frontend: ["Next.js", "Zustand", "Framer Motion"],
-    backend: ["Python", "FastAPI", "WebSockets"],
-    database: "MongoDB",
-    metrics: { uptime: "99.95%", responseTime: "12ms" },
-    github: "https://github.com",
-    demo: "https://example.com",
+    title: "2FA MERN AUTH",
+    description: "Production-ready 2FA system with TOTP, QR code setup, bcrypt hashing, and secure session storage.",
+    image: "/img/twofactauth.png",
+    frontend: ["React", "Vite", "TailwindCSS"],
+    backend: ["Node.js", "Express", "Passport.js"],
+    database: ["MongoDB"],
+    repoName: "2FA-MERN",
+    github: "https://github.com/ShaikhSamir786/2FA-MERN",
     featured: true,
   },
   {
     id: "3",
-    title: "ML INFERENCE ENGINE",
-    description: "Distributed machine learning inference platform with auto-scaling, model versioning, and A/B testing capabilities.",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop",
-    frontend: ["React", "D3.js", "Chart.js"],
-    backend: ["Python", "TensorFlow", "Docker"],
-    database: "TimescaleDB",
-    metrics: { uptime: "99.9%", responseTime: "200ms" },
-    github: "https://github.com",
-    demo: "https://example.com",
-    featured: false,
+    title: "TYPESCRIPT SDK",
+    description: "Production-ready SDK for JSONPlaceholder API with clean architecture and robust error handling.",
+    image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=600&fit=crop",
+    frontend: [],
+    backend: ["TypeScript", "Node.js", "Axios"],
+    repoName: "TypeScript-SDK-for-JSONPlaceholder",
+    github: "https://github.com/ShaikhSamir786/TypeScript-SDK-for-JSONPlaceholder",
+    featured: true,
   },
   {
     id: "4",
-    title: "EVENT-DRIVEN MICROSERVICES",
-    description: "Event sourcing architecture with CQRS pattern, handling complex business workflows with guaranteed delivery.",
-    image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&h=600&fit=crop",
-    frontend: ["Vue.js", "Vuex", "SCSS"],
-    backend: ["Go", "Kafka", "gRPC"],
-    database: "EventStore",
-    metrics: { uptime: "99.99%", responseTime: "8ms" },
-    github: "https://github.com",
-    demo: "https://example.com",
-    featured: false,
+    title: "EVENTIFY PLATFORM",
+    description: "Scalable event management platform for creating, managing, and collaborating on events seamlessly.",
+    image: "https://images.unsplash.com/photo-1505373877741-e174b4cc1605?w=800&h=600&fit=crop",
+    frontend: ["No frontend"],
+    backend: ["Node.js", "express"],
+    database: ["SQL"],
+    repoName: "Eventify",
+    github: "https://github.com/ShaikhSamir786/Eventify",
+    featured: true,
   },
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [stats, setStats] = useState({ stars: 0, forks: 0 });
+
+  useEffect(() => {
+    fetch(`https://api.github.com/repos/ShaikhSamir786/${project.repoName}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.stargazers_count !== undefined) {
+          setStats({ stars: data.stargazers_count, forks: data.forks_count });
+        }
+      })
+      .catch(err => console.error("Failed to fetch stats", err));
+  }, [project.repoName]);
 
   return (
     <motion.div
@@ -87,9 +90,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className="perspective-1000 h-[450px]"
     >
       <div
-        className={`relative w-full h-full transition-all duration-500 preserve-3d cursor-pointer ${
-          isFlipped ? "[transform:rotateY(180deg)]" : ""
-        }`}
+        className={`relative w-full h-full transition-all duration-500 preserve-3d cursor-pointer ${isFlipped ? "[transform:rotateY(180deg)]" : ""
+          }`}
         onClick={() => setIsFlipped(!isFlipped)}
       >
         {/* Front */}
@@ -108,15 +110,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 </span>
               )}
             </div>
-            
+
             <div className="flex-1 flex flex-col pt-4">
               <h3 className="font-display text-2xl text-foreground mb-2">{project.title}</h3>
               <p className="text-muted-foreground text-sm flex-1 line-clamp-3">{project.description}</p>
-              
+
               <div className="flex items-center justify-between mt-4 pt-4 border-t-2 border-border">
-                <div className="flex items-center gap-2 text-xs text-primary">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
-                  {project.metrics.uptime} uptime
+                <div className="flex items-center gap-4 text-xs">
+                  <div className="flex items-center gap-1 text-primary">
+                    <Star className="w-3 h-3" />
+                    <span>{stats.stars}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-primary">
+                    <GitFork className="w-3 h-3" />
+                    <span>{stats.forks}</span>
+                  </div>
                 </div>
                 <span className="text-xs text-muted-foreground font-mono">
                   Click to flip →
@@ -130,22 +138,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)]">
           <div className="card-brutal-accent h-full flex flex-col">
             <h4 className="font-display text-xl text-foreground mb-4">TECH STACK</h4>
-            
+
             <div className="space-y-3 flex-1">
               <div className="flex items-start gap-3">
                 <Globe className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
                 <div>
                   <span className="text-xs text-muted-foreground block mb-1">FRONTEND</span>
                   <div className="flex flex-wrap gap-1">
-                    {project.frontend.map((tech) => (
+                    {project.frontend.length > 0 ? project.frontend.map((tech) => (
                       <span key={tech} className="px-2 py-0.5 bg-secondary text-secondary-foreground text-xs">
                         {tech}
                       </span>
-                    ))}
+                    )) : <span className="text-xs text-muted-foreground/50">N/A</span>}
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex items-start gap-3">
                 <Server className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                 <div>
@@ -159,32 +167,40 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   </div>
                 </div>
               </div>
-              
-              <div className="flex items-start gap-3">
-                <Database className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-                <div>
-                  <span className="text-xs text-muted-foreground block mb-1">DATABASE</span>
-                  <span className="px-2 py-0.5 bg-accent/20 text-accent text-xs">
-                    {project.database}
-                  </span>
-                </div>
-              </div>
-              
-              <div className="pt-3 border-t border-border">
-                <span className="text-xs text-muted-foreground block mb-2">PERFORMANCE</span>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 bg-secondary">
-                    <span className="text-primary font-bold">{project.metrics.responseTime}</span>
-                    <span className="text-muted-foreground block">response</span>
+
+              {project.database && (
+                <div className="flex items-start gap-3">
+                  <Database className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
+                  <div>
+                    <span className="text-xs text-muted-foreground block mb-1">DATABASE</span>
+                    <span className="px-2 py-0.5 bg-accent/20 text-accent text-xs">
+                      {project.database.map((tech) => tech).join(", ")}
+                    </span>
                   </div>
-                  <div className="p-2 bg-secondary">
-                    <span className="text-primary font-bold">{project.metrics.uptime}</span>
-                    <span className="text-muted-foreground block">uptime</span>
+                </div>
+              )}
+
+              <div className="pt-3 border-t border-border">
+                <span className="text-xs text-muted-foreground block mb-2">REPOSITORY STATS</span>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 bg-secondary flex items-center gap-2">
+                    <Star className="w-4 h-4 text-primary" />
+                    <div>
+                      <span className="text-primary font-bold block">{stats.stars}</span>
+                      <span className="text-muted-foreground block text-[10px]">STARS</span>
+                    </div>
+                  </div>
+                  <div className="p-2 bg-secondary flex items-center gap-2">
+                    <GitFork className="w-4 h-4 text-primary" />
+                    <div>
+                      <span className="text-primary font-bold block">{stats.forks}</span>
+                      <span className="text-muted-foreground block text-[10px]">FORKS</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="flex gap-2 mt-4">
               <a
                 href={project.github}
@@ -196,16 +212,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 <Github className="w-4 h-4" />
                 <span className="text-xs font-bold">CODE</span>
               </a>
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-2 bg-primary text-primary-foreground border-2 border-primary hover:bg-primary/80 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span className="text-xs font-bold">DEMO</span>
-              </a>
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 py-2 bg-primary text-primary-foreground border-2 border-primary hover:bg-primary/80 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="text-xs font-bold">DEMO</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -231,7 +249,7 @@ export default function Projects() {
             <span className="text-primary">PROJECTS</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mt-4">
-            Production-grade applications showcasing scalable architecture, 
+            Production-grade applications showcasing scalable architecture,
             clean code, and attention to performance.
           </p>
         </motion.div>
@@ -250,7 +268,7 @@ export default function Projects() {
           className="text-center mt-16"
         >
           <a
-            href="https://github.com"
+            href="https://github.com/ShaikhSamir786"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-brutal-outline inline-flex items-center gap-2"

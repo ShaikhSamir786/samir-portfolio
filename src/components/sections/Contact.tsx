@@ -13,20 +13,19 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+
     console.log("Form submitted:", formState);
     setFormState({ name: "", email: "", message: "" });
     setIsSubmitting(false);
   };
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com/ShaikhSamir786", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/samir-shaikh-760b932a8/", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:22amtics312@gmail.com", label: "Email" },
   ];
 
   return (
@@ -149,11 +148,11 @@ export default function Contact() {
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   className="w-full px-4 py-4 bg-card border-4 border-foreground text-foreground font-mono focus:border-primary focus:outline-none transition-colors"
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   required
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-xs font-mono text-muted-foreground mb-2 uppercase tracking-wider">
                   Email Address
@@ -164,11 +163,11 @@ export default function Contact() {
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   className="w-full px-4 py-4 bg-card border-4 border-foreground text-foreground font-mono focus:border-primary focus:outline-none transition-colors"
-                  placeholder="john@example.com"
+                  placeholder="Your Email"
                   required
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="message" className="block text-xs font-mono text-muted-foreground mb-2 uppercase tracking-wider">
                   Message
@@ -183,7 +182,7 @@ export default function Contact() {
                   required
                 />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}

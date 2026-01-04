@@ -20,7 +20,7 @@ export default function Footer() {
               <div className="p-2 border-2 border-primary text-primary">
                 <Terminal className="w-5 h-5" />
               </div>
-              <span className="font-display text-xl text-foreground">DEV.PORTFOLIO</span>
+              <span className="font-display text-xl text-foreground">Samir.PORTFOLIO</span>
             </div>
             <p className="text-muted-foreground text-sm text-center md:text-left">
               Building scalable systems<br />one commit at a time.
@@ -55,9 +55,8 @@ export default function Footer() {
             className="flex justify-center md:justify-end gap-4"
           >
             {[
-              { icon: Github, href: "https://github.com" },
-              { icon: Linkedin, href: "https://linkedin.com" },
-              { icon: Twitter, href: "https://twitter.com" },
+              { icon: Github, href: "https://github.com/ShaikhSamir786" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/samir-shaikh-760b932a8/" },
             ].map(({ icon: Icon, href }) => (
               <a
                 key={href}
@@ -83,7 +82,7 @@ export default function Footer() {
             <span>© {currentYear}</span>
             <span className="text-primary">|</span>
             <span>Built with</span>
-            <Heart className="w-3 h-3 text-destructive inline" />
+            {/* <Heart className="w-3 h-3 text-destructive inline" /> */}
             <span>and</span>
             <span className="text-primary">React + Three.js</span>
           </p>

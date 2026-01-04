@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { Activity, GitCommit, Code, Clock, Zap, Server } from "lucide-react";
+import { Activity, GitCommit, Code, Clock, Zap, Server, Users, Star } from "lucide-react";
 
 interface MetricCardProps {
   value: number;
@@ -22,7 +22,7 @@ function AnimatedCounter({ value, suffix = "", delay = 0 }: { value: number; suf
         const steps = 60;
         const increment = value / steps;
         let current = 0;
-        
+
         const interval = setInterval(() => {
           current += increment;
           if (current >= value) {
@@ -32,10 +32,10 @@ function AnimatedCounter({ value, suffix = "", delay = 0 }: { value: number; suf
             setCount(Math.floor(current));
           }
         }, duration / steps);
-        
+
         return () => clearInterval(interval);
       }, delay);
-      
+
       return () => clearTimeout(timer);
     }
   }, [isInView, value, delay]);
@@ -73,16 +73,51 @@ function MetricCard({ value, label, suffix, icon, delay = 0 }: MetricCardProps) 
 function ActivityHeatmap() {
   const weeks = 52;
   const days = 7;
-  
-  // Generate mock contribution data
-  const contributions = Array.from({ length: weeks * days }, () => 
-    Math.random() > 0.3 ? Math.floor(Math.random() * 10) : 0
-  );
+  const [contributions, setContributions] = useState<number[]>(Array(weeks * days).fill(0));
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("https://api.github.com/users/ShaikhSamir786/events?per_page=100");
+        if (!response.ok) throw new Error("Failed to fetch events");
+
+        const events = await response.json();
+        const eventDates: { [key: string]: number } = {};
+
+        // Count events per day
+        events.forEach((event: any) => {
+          const date = new Date(event.created_at).toISOString().split('T')[0];
+          eventDates[date] = (eventDates[date] || 0) + 1;
+        });
+
+        // Map to grid (last 52 weeks)
+        const today = new Date();
+        const newContributions = Array(weeks * days).fill(0);
+
+        // Fill backwards from today
+        for (let i = 0; i < weeks * days; i++) {
+          const date = new Date(today);
+          date.setDate(date.getDate() - ((weeks * days) - 1 - i));
+          const dateString = date.toISOString().split('T')[0];
+          if (eventDates[dateString]) {
+            newContributions[i] = eventDates[dateString];
+          }
+        }
+
+        setContributions(newContributions);
+      } catch (error) {
+        console.error("Error fetching GitHub events:", error);
+        // Keep initial empty/random state or handle error
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const getIntensity = (count: number) => {
     if (count === 0) return "bg-secondary";
-    if (count < 3) return "bg-primary/30";
-    if (count < 6) return "bg-primary/60";
+    if (count < 2) return "bg-primary/30";
+    if (count < 4) return "bg-primary/60";
     return "bg-primary";
   };
 
@@ -99,25 +134,26 @@ function ActivityHeatmap() {
           <div className="terminal-dot bg-destructive" />
           <div className="terminal-dot bg-accent" />
           <div className="terminal-dot bg-primary" />
-          <span className="ml-4 text-xs text-muted-foreground font-mono">activity.log</span>
+          <span className="ml-4 text-xs text-muted-foreground font-mono">activity.log (Last 90 Days Events)</span>
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 justify-end">
           {Array.from({ length: weeks }).map((_, weekIndex) => (
             <div key={weekIndex} className="flex flex-col gap-1">
               {Array.from({ length: days }).map((_, dayIndex) => {
                 const index = weekIndex * days + dayIndex;
+                const count = contributions[index];
                 return (
                   <motion.div
                     key={dayIndex}
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.1, 
-                      delay: index * 0.001 
+                    transition={{
+                      duration: 0.1,
+                      delay: (index % 50) * 0.01 // Optimize delay for many items
                     }}
                     viewport={{ once: true }}
-                    className={`w-3 h-3 ${getIntensity(contributions[index])} hover:ring-2 hover:ring-primary cursor-pointer transition-all`}
-                    title={`${contributions[index]} contributions`}
+                    className={`w-3 h-3 ${getIntensity(count)} hover:ring-2 hover:ring-primary cursor-pointer transition-all`}
+                    title={`${count} contributions`}
                   />
                 );
               })}
@@ -140,12 +176,35 @@ function ActivityHeatmap() {
 }
 
 export default function MetricsDashboard() {
+  const [profileMetrics, setProfileMetrics] = useState({
+    repos: 47, // Default fallback
+    followers: 0,
+    following: 0,
+    years: 5
+  });
+
+  useEffect(() => {
+    fetch("https://api.github.com/users/ShaikhSamir786")
+      .then(res => res.json())
+      .then(data => {
+        if (data.public_repos) {
+          setProfileMetrics({
+            repos: data.public_repos,
+            followers: data.followers,
+            following: data.following,
+            years: new Date().getFullYear() - new Date(data.created_at).getFullYear()
+          });
+        }
+      })
+      .catch(err => console.error("Error fetching profile:", err));
+  }, []);
+
   const metrics = [
-    { value: 2847, label: "Total Commits", icon: <GitCommit className="w-5 h-5" /> },
-    { value: 47, label: "Projects Built", icon: <Code className="w-5 h-5" /> },
+    { value: profileMetrics.repos, label: "Public Repos", icon: <GitCommit className="w-5 h-5" /> },
+    { value: profileMetrics.followers, label: "Followers", icon: <Users className="w-5 h-5" /> },
     { value: 99.9, suffix: "%", label: "Uptime Average", icon: <Activity className="w-5 h-5" /> },
     { value: 142, suffix: "ms", label: "Avg Response Time", icon: <Zap className="w-5 h-5" /> },
-    { value: 5, suffix: "+", label: "Years Experience", icon: <Clock className="w-5 h-5" /> },
+    { value: profileMetrics.years, suffix: "+", label: "Years Active", icon: <Clock className="w-5 h-5" /> },
     { value: 15, suffix: "+", label: "APIs Deployed", icon: <Server className="w-5 h-5" /> },
   ];
 

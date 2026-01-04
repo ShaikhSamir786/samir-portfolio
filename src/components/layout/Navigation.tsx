@@ -25,11 +25,10 @@ export default function Navigation() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? "bg-background/95 backdrop-blur-sm border-b-4 border-primary" 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+            ? "bg-background/95 backdrop-blur-sm border-b-4 border-primary"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-20">
@@ -38,7 +37,7 @@ export default function Navigation() {
               <div className="p-2 border-2 border-primary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 <Terminal className="w-5 h-5" />
               </div>
-              <span className="font-display text-xl text-foreground hidden sm:block">DEV.PORTFOLIO</span>
+              <span className="font-display text-xl text-foreground hidden sm:block">Samir.PORTFOLIO</span>
             </a>
 
             {/* Desktop Navigation */}
@@ -76,7 +75,7 @@ export default function Navigation() {
       {/* Mobile Menu */}
       <motion.div
         initial={false}
-        animate={{ 
+        animate={{
           opacity: isMobileMenuOpen ? 1 : 0,
           x: isMobileMenuOpen ? 0 : "100%",
         }}
@@ -91,9 +90,9 @@ export default function Navigation() {
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: isMobileMenuOpen ? 1 : 0, 
-                y: isMobileMenuOpen ? 0 : 20 
+              animate={{
+                opacity: isMobileMenuOpen ? 1 : 0,
+                y: isMobileMenuOpen ? 0 : 20
               }}
               transition={{ delay: index * 0.1 }}
               className="font-display text-4xl text-foreground hover:text-primary transition-colors"
@@ -105,9 +104,9 @@ export default function Navigation() {
             href="#contact"
             onClick={() => setIsMobileMenuOpen(false)}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: isMobileMenuOpen ? 1 : 0, 
-              y: isMobileMenuOpen ? 0 : 20 
+            animate={{
+              opacity: isMobileMenuOpen ? 1 : 0,
+              y: isMobileMenuOpen ? 0 : 20
             }}
             transition={{ delay: navLinks.length * 0.1 }}
             className="btn-brutal mt-4"

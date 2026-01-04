@@ -8,21 +8,26 @@ interface FileSystem {
 const fileSystem: FileSystem = {
   home: {
     projects: {
-      "scalable-api.md": `# Scalable API Platform
+      "rag.md": `# RAG Platform
   
-Built with Node.js, PostgreSQL, Redis
-Handles 10K+ requests/second
-99.9% uptime SLA`,
-      "ai-dashboard.md": `# AI Analytics Dashboard
+Retrieval Augmented Generation system
+Built with React, Node.js, Vector DB
+GitHub: github.com/ShaikhSamir786/rag`,
+      "2fa-mern.md": `# 2FA MERN Auth
 
-React + Three.js frontend
-Real-time data visualization
-Custom ML pipeline integration`,
-      "devops-toolkit.md": `# DevOps Automation Toolkit
+Two-Factor Authentication System
+Stack: MongoDB, Express, React, Node.js
+GitHub: github.com/ShaikhSamir786/2FA-MERN`,
+      "typescript-sdk.md": `# TypeScript SDK
 
-Terraform + GitHub Actions
-Multi-region deployment
-Zero-downtime releases`,
+SDK for JSONPlaceholder API
+Production-ready clean architecture
+GitHub: github.com/ShaikhSamir786/TypeScript-SDK-for-JSONPlaceholder`,
+      "eventify.md": `# Eventify
+
+Event Management Platform
+Scalable architecture
+GitHub: github.com/ShaikhSamir786/Eventify`,
     },
     skills: {
       "frontend.txt": "React, Next.js, TypeScript, Three.js, Framer Motion, TailwindCSS",
@@ -33,13 +38,13 @@ Zero-downtime releases`,
       "readme.txt": `> WHOAMI
   
 Full-stack developer specializing in scalable backend systems.
-5+ years of experience building production applications.
+1+ years of experience building production applications.
 Passionate about clean code and system architecture.
 
 Type 'contact' for ways to reach me.`,
-      "contact.txt": `EMAIL: hello@example.com
-GITHUB: github.com/developer
-LINKEDIN: linkedin.com/in/developer`,
+      "contact.txt": `EMAIL: 22amtics312@gmail.com
+GITHUB: github.com/ShaikhSamir786
+LINKEDIN: linkedin.com/in/samir-shaikh-760b932a8/`,
     },
     ".secret": "🎉 You found the secret! Use code TERMINAL-MASTER for a virtual high-five.",
   },
@@ -65,9 +70,10 @@ const COMMANDS = {
 > "I build backends that scale. And frontends that don't suck."`,
   projects: `[PROJECTS]
   
-├── scalable-api      Production API handling 10K+ rps
-├── ai-dashboard      Real-time ML analytics platform  
-└── devops-toolkit    Infrastructure automation suite
+├── rag               RAG Platform (AI/ML)
+├── 2fa-mern          2FA Authentication System
+├── typescript-sdk    JSONPlaceholder SDK
+└── eventify          Event Management Platform
 
 Use 'cd projects && cat <file>' for details`,
   skills: `[SKILLS]
@@ -82,9 +88,9 @@ DEVOPS    ██████████████░░  85%
   AWS, Docker, Kubernetes, Terraform`,
   contact: `[CONTACT]
 
-📧 Email:    hello@example.com
-🐙 GitHub:   github.com/developer
-💼 LinkedIn: linkedin.com/in/developer
+📧 Email:    22amtics312@gmail.com
+🐙 GitHub:   github.com/ShaikhSamir786
+💼 LinkedIn: linkedin.com/in/samir-shaikh-760b932a8/
 
 Or use the contact form: type 'exit' and scroll to contact section`,
 };
@@ -177,7 +183,7 @@ export default function TerminalEasterEgg() {
       case "contact":
         return COMMANDS.contact;
       case "github":
-        window.open("https://github.com", "_blank");
+        window.open("https://github.com/ShaikhSamir786", "_blank");
         return "Opening GitHub...";
       case "exit":
         setTimeout(() => setIsOpen(false), 100);
