@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import TerminalEasterEgg from "@/components/terminal/TerminalEasterEgg";
 import SecretFeatureHint from "@/components/terminal/SecretFeatureHint";
 import ScrollProgress from "@/components/layout/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <ScrollProgress />
+      <SmoothScroll />
       <TerminalEasterEgg />
       <SecretFeatureHint />
       <BrowserRouter>
