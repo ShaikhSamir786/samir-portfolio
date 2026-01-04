@@ -1,96 +1,77 @@
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+@import "@fontsource/bebas-neue/400.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* Neo-Brutalist Portfolio Design System */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Core palette - Dark industrial with neon accents */
+    --background: 220 15% 8%;
+    --foreground: 60 10% 95%;
+    
+    --card: 220 15% 12%;
+    --card-foreground: 60 10% 95%;
+    
+    --popover: 220 15% 10%;
+    --popover-foreground: 60 10% 95%;
+    
+    /* Neon lime/green - Terminal aesthetic */
+    --primary: 120 100% 50%;
+    --primary-foreground: 220 15% 8%;
+    
+    /* Muted industrial gray */
+    --secondary: 220 10% 18%;
+    --secondary-foreground: 60 10% 90%;
+    
+    --muted: 220 10% 15%;
+    --muted-foreground: 220 10% 55%;
+    
+    /* Accent - Electric cyan for highlights */
+    --accent: 180 100% 50%;
+    --accent-foreground: 220 15% 8%;
+    
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 60 10% 95%;
+    
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 120 100% 50%;
+    
+    --radius: 0px;
+    
+    /* Neo-brutalist specific tokens */
+    --brutal-shadow: 6px 6px 0px hsl(120 100% 50%);
+    --brutal-shadow-sm: 3px 3px 0px hsl(120 100% 50%);
+    --brutal-shadow-lg: 10px 10px 0px hsl(120 100% 50%);
+    --brutal-shadow-white: 6px 6px 0px hsl(60 10% 95%);
+    --brutal-shadow-accent: 6px 6px 0px hsl(180 100% 50%);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(120 100% 50%) 0%, hsl(160 100% 50%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(220 15% 8%) 0%, hsl(220 15% 4%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(120 100% 50% / 0.15) 0%, transparent 70%);
+    
+    /* Typography */
+    --font-display: "Bebas Neue", sans-serif;
+    --font-mono: "Space Mono", monospace;
+    --font-body: "Space Mono", monospace;
+    
+    /* Animation tokens */
+    --transition-brutal: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Spatial depth */
+    --layer-1: translateZ(0px);
+    --layer-2: translateZ(20px);
+    --layer-3: translateZ(40px);
+    
+    /* Grid pattern */
+    --grid-color: hsl(120 100% 50% / 0.08);
+    --grid-size: 40px;
   }
 }
 
@@ -98,8 +79,243 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
-  body {
-    @apply bg-background text-foreground;
+  
+  html {
+    scroll-behavior: smooth;
   }
+  
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    font-family: var(--font-body);
+    background-image: 
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer components {
+  /* Neo-brutalist button styles */
+  .btn-brutal {
+    @apply relative inline-flex items-center justify-center px-8 py-4 
+           bg-primary text-primary-foreground font-bold uppercase tracking-wider
+           border-4 border-foreground transition-all duration-150;
+    box-shadow: var(--brutal-shadow-white);
+  }
+  
+  .btn-brutal:hover {
+    @apply translate-x-1 translate-y-1;
+    box-shadow: 2px 2px 0px hsl(var(--foreground));
+  }
+  
+  .btn-brutal:active {
+    @apply translate-x-1.5 translate-y-1.5;
+    box-shadow: none;
+  }
+  
+  .btn-brutal-outline {
+    @apply relative inline-flex items-center justify-center px-8 py-4 
+           bg-transparent text-foreground font-bold uppercase tracking-wider
+           border-4 border-foreground transition-all duration-150;
+    box-shadow: var(--brutal-shadow);
+  }
+  
+  .btn-brutal-outline:hover {
+    @apply bg-primary text-primary-foreground translate-x-1 translate-y-1;
+    box-shadow: 2px 2px 0px hsl(var(--primary));
+  }
+  
+  /* Card styles */
+  .card-brutal {
+    @apply relative bg-card border-4 border-foreground p-6;
+    box-shadow: var(--brutal-shadow);
+  }
+  
+  .card-brutal:hover {
+    @apply translate-x-1 translate-y-1;
+    box-shadow: 2px 2px 0px hsl(var(--primary));
+  }
+  
+  .card-brutal-accent {
+    @apply relative bg-card border-4 border-accent p-6;
+    box-shadow: var(--brutal-shadow-accent);
+  }
+  
+  /* Terminal styling */
+  .terminal-window {
+    @apply bg-background border-4 border-primary p-4;
+    box-shadow: var(--brutal-shadow);
+  }
+  
+  .terminal-header {
+    @apply flex items-center gap-2 mb-4 pb-4 border-b-2 border-primary/30;
+  }
+  
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+  
+  .terminal-text {
+    @apply font-mono text-primary;
+  }
+  
+  /* Glitch effect */
+  .glitch {
+    @apply relative;
+  }
+  
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+  
+  .glitch::before {
+    animation: glitch-1 0.3s infinite linear alternate-reverse;
+    @apply text-accent;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  }
+  
+  .glitch::after {
+    animation: glitch-2 0.3s infinite linear alternate-reverse;
+    @apply text-destructive;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  }
+  
+  /* Data visualization elements */
+  .data-point {
+    @apply w-2 h-2 bg-primary rounded-full;
+    box-shadow: 0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary) / 0.5);
+  }
+  
+  .metric-value {
+    font-family: var(--font-display);
+    @apply text-6xl md:text-8xl text-primary tracking-tight;
+    text-shadow: 0 0 30px hsl(var(--primary) / 0.5);
+  }
+  
+  /* Section styling */
+  .section-brutal {
+    @apply relative py-24 px-6 md:px-12;
+  }
+  
+  .section-header {
+    @apply text-5xl md:text-7xl lg:text-8xl font-display mb-12;
+  }
+  
+  /* Scanline effect */
+  .scanlines::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(var(--background) / 0.03) 2px,
+      hsl(var(--background) / 0.03) 4px
+    );
+  }
+  
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.5), 0 0 40px hsl(var(--accent) / 0.3);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .font-display {
+    font-family: var(--font-display);
+  }
+  
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Keyframe animations */
+@keyframes glitch-1 {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes glitch-2 {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(2px); }
+  40% { transform: translateX(-2px); }
+  60% { transform: translateX(1px); }
+  80% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 20px hsl(var(--primary) / 0.5); }
+  50% { opacity: 0.8; box-shadow: 0 0 40px hsl(var(--primary) / 0.8); }
+}
+
+@keyframes terminal-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes data-flow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-terminal-blink {
+  animation: terminal-blink 1s step-end infinite;
+}
+
+.animate-data-flow {
+  animation: data-flow 3s linear infinite;
 }
