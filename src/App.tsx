@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import TerminalEasterEgg from "@/components/terminal/TerminalEasterEgg";
+import ScrollProgress from "@/components/layout/ScrollProgress";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +15,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollProgress />
+      <TerminalEasterEgg />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
