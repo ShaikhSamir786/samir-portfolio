@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Globe, Server, Database, Cloud, Layers, ArrowRight, ArrowDown, Zap } from "lucide-react";
+import { useState, lazy, Suspense } from "react";
+import { Globe, Server, Database, Cloud, Layers, ArrowDown, Zap } from "lucide-react";
+
+const ArchitectureFlow = lazy(() => import("@/components/architecture/ArchitectureFlow"));
 
 interface Layer {
   id: string;
@@ -205,7 +207,7 @@ export default function Architecture() {
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mb-16">
           {architectureLayers.map((layer, index) => (
             <LayerCard
               key={layer.id}
@@ -216,6 +218,23 @@ export default function Architecture() {
             />
           ))}
         </div>
+
+        {/* Interactive Flow Diagram */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="font-display text-2xl mb-6 text-foreground">REQUEST FLOW VISUALIZATION</h3>
+          <p className="text-muted-foreground mb-6 font-mono text-sm">
+            Interactive diagram - drag to pan, scroll to zoom, click nodes for details
+          </p>
+          <Suspense fallback={<div className="h-[600px] border-4 border-primary bg-card/50 animate-pulse" />}>
+            <ArchitectureFlow />
+          </Suspense>
+        </motion.div>
       </div>
     </section>
   );
