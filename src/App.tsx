@@ -10,12 +10,14 @@ import SecretFeatureHint from "@/components/terminal/SecretFeatureHint";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import AIChatbot from "@/components/chat/AIChatbot";
+import SEOHead, { defaultStructuredData } from "@/components/layout/SEOHead";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <SEOHead structuredData={defaultStructuredData} />
       <Toaster />
       <Sonner />
       <ScrollProgress />

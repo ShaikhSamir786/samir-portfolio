@@ -81,9 +81,9 @@ export default function Footer() {
           <p className="text-muted-foreground text-xs font-mono flex items-center justify-center gap-2">
             <span>© {currentYear}</span>
             <span className="text-primary">|</span>
-            <span>Built with</span>
+            <span>created mindfully</span>
             {/* <Heart className="w-3 h-3 text-destructive inline" /> */}
-            <span>and</span>
+            <span>with</span>
             <span className="text-primary">React + Three.js</span>
           </p>
         </motion.div>

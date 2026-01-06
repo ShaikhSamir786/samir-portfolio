@@ -16,61 +16,62 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
   {
     id: "1",
-    role: "Senior Backend Engineer",
-    company: "TechScale Inc.",
-    location: "Remote",
-    period: "2023 - Present",
-    description: "Leading backend architecture for high-traffic microservices handling 10M+ daily requests.",
+    role: "Student",
+    company: "uka Tarsadia University",
+    location: "Surat, Gujrat",
+    period: "2022 - Present",
+    description: "Studying B.Tech in Computer Science and Engineering.",
     achievements: [
-      "Reduced API latency by 60% through Redis caching strategies",
-      "Designed event-driven architecture using Kafka",
-      "Mentored team of 5 junior developers",
+      "Studied in Tarsadia University",
+      // "Designed event-driven architecture using Kafka",
+      // "Mentored team of 5 junior developers",
     ],
-    technologies: ["Node.js", "PostgreSQL", "Redis", "Kafka", "Kubernetes"],
-    companyUrl: "https://example.com",
+    technologies: ["Node.js", "PostgreSQL", "Redis", "Kafka"],
+    companyUrl: "https://utu.ac.in/ ",
   },
   {
     id: "2",
-    role: "Full Stack Developer",
-    company: "StartupHub",
-    location: "Berlin, Germany",
-    period: "2021 - 2023",
-    description: "Built and maintained multiple client-facing applications from scratch.",
+    role: "Backend Developer",
+    company: "logicwind",
+    location: "Surat, Gujrat",
+    period: "2025 - present",
+    description: "Developing backend for multiple client-facing applications.",
     achievements: [
-      "Launched 3 production applications serving 50k+ users",
+      "Developed backend for multiple client-facing applications",
       "Implemented CI/CD pipelines reducing deployment time by 80%",
       "Integrated payment systems processing $2M+ monthly",
     ],
-    technologies: ["React", "TypeScript", "Python", "AWS", "Docker"],
+    technologies: ["Node.js", "TypeScript", "Kafka", "PostgreSQL", "Redis", "Microservices", "Docker", "System Design"],
+    companyUrl: "https://logicwind.com/",
   },
-  {
-    id: "3",
-    role: "Backend Developer",
-    company: "DataFlow Systems",
-    location: "London, UK",
-    period: "2019 - 2021",
-    description: "Developed data processing pipelines and REST APIs for enterprise clients.",
-    achievements: [
-      "Built ETL pipelines processing 1TB+ daily data",
-      "Optimized database queries improving performance by 40%",
-      "Developed internal tooling used by 200+ employees",
-    ],
-    technologies: ["Python", "Django", "PostgreSQL", "Elasticsearch", "RabbitMQ"],
-  },
-  {
-    id: "4",
-    role: "Junior Developer",
-    company: "WebAgency Pro",
-    location: "Paris, France",
-    period: "2017 - 2019",
-    description: "Started career building websites and web applications for small businesses.",
-    achievements: [
-      "Delivered 20+ client projects on time and budget",
-      "Learned agile methodologies and version control",
-      "Transitioned from frontend to full-stack development",
-    ],
-    technologies: ["JavaScript", "PHP", "MySQL", "WordPress", "jQuery"],
-  },
+  // {
+  //   id: "3",
+  //   role: "Backend Developer",
+  //   company: "DataFlow Systems",
+  //   location: "London, UK",
+  //   period: "2019 - 2021",
+  //   description: "Developed data processing pipelines and REST APIs for enterprise clients.",
+  //   achievements: [
+  //     "Built ETL pipelines processing 1TB+ daily data",
+  //     "Optimized database queries improving performance by 40%",
+  //     "Developed internal tooling used by 200+ employees",
+  //   ],
+  //   technologies: ["Python", "Django", "PostgreSQL", "Elasticsearch", "RabbitMQ"],
+  // },
+  // {
+  //   id: "4",
+  //   role: "Junior Developer",
+  //   company: "WebAgency Pro",
+  //   location: "Paris, France",
+  //   period: "2017 - 2019",
+  //   description: "Started career building websites and web applications for small businesses.",
+  //   achievements: [
+  //     "Delivered 20+ client projects on time and budget",
+  //     "Learned agile methodologies and version control",
+  //     "Transitioned from frontend to full-stack development",
+  //   ],
+  //   technologies: ["JavaScript", "PHP", "MySQL", "WordPress", "jQuery"],
+  // },
 ];
 
 function TimelineItem({ experience, index }: { experience: ExperienceItem; index: number }) {
@@ -86,18 +87,16 @@ function TimelineItem({ experience, index }: { experience: ExperienceItem; index
     >
       {/* Timeline dot */}
       <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-primary border-4 border-background z-10 hidden md:block" />
-      
+
       {/* Content card */}
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className={`w-full md:w-[calc(50%-2rem)] p-6 border-4 border-primary bg-card hover:shadow-brutal transition-all ${
-          isEven ? "md:text-right" : "md:text-left"
-        }`}
+        className={`w-full md:w-[calc(50%-2rem)] p-6 border-4 border-primary bg-card hover:shadow-brutal transition-all ${isEven ? "md:text-right" : "md:text-left"
+          }`}
       >
         {/* Period badge */}
-        <div className={`inline-flex items-center gap-2 px-3 py-1 bg-primary text-primary-foreground font-mono text-xs mb-4 ${
-          isEven ? "md:ml-auto" : ""
-        }`}>
+        <div className={`inline-flex items-center gap-2 px-3 py-1 bg-primary text-primary-foreground font-mono text-xs mb-4 ${isEven ? "md:ml-auto" : ""
+          }`}>
           <Calendar className="w-3 h-3" />
           {experience.period}
         </div>

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot, User, Loader2, Sparkles } from "lucide-react";
+import { profile } from "node:console";
 
 interface Message {
   id: string;
@@ -23,6 +24,7 @@ const SAMPLE_RESPONSES: Record<string, string> = {
   contact: "The best way to reach Samir is through the contact form on this website, or connect with him on LinkedIn or GitHub. He typically responds within 24 hours.",
   availability: "Samir is currently available for freelance projects and consulting work. He's open to both short-term and long-term engagements, especially in backend architecture and API development.",
   default: "I'd be happy to help you learn more about Samir! You can ask about his skills, experience, projects, availability, or how to get in touch. What would you like to know?",
+  profile: "Samir is a passionate software engineer with over 7 years of experience in building scalable, production-ready systems. He's currently working as a  Backend Engineer at logicwind Inc."
 };
 
 function getResponse(message: string): string {
@@ -42,6 +44,9 @@ function getResponse(message: string): string {
   if (lower.includes("available") || lower.includes("freelance") || lower.includes("consult")) {
     return SAMPLE_RESPONSES.availability;
   }
+  if (lower.includes("profile") || lower.includes("about") || lower.includes("know")) {
+    return SAMPLE_RESPONSES.profile;
+  }
   return SAMPLE_RESPONSES.default;
 }
 
@@ -55,18 +60,16 @@ function ChatMessage({ message }: { message: Message }) {
       className={`flex gap-3 ${isUser ? "flex-row-reverse" : ""}`}
     >
       <div
-        className={`w-8 h-8 flex items-center justify-center shrink-0 ${
-          isUser ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"
-        }`}
+        className={`w-8 h-8 flex items-center justify-center shrink-0 ${isUser ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"
+          }`}
       >
         {isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
       </div>
       <div
-        className={`max-w-[80%] p-3 font-mono text-sm ${
-          isUser
+        className={`max-w-[80%] p-3 font-mono text-sm ${isUser
             ? "bg-primary text-primary-foreground"
             : "bg-muted text-foreground border-2 border-primary/30"
-        }`}
+          }`}
       >
         {message.content}
       </div>
@@ -133,9 +136,8 @@ export default function AIChatbot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center shadow-brutal hover:shadow-brutal-lg transition-all ${
-          isOpen ? "hidden" : ""
-        }`}
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center shadow-brutal hover:shadow-brutal-lg transition-all ${isOpen ? "hidden" : ""
+          }`}
         aria-label="Open chat"
       >
         <MessageCircle className="w-6 h-6" />
