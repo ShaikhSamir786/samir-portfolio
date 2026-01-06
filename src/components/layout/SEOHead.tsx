@@ -1,5 +1,4 @@
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Person, ProfessionalService, WithContext } from "schema-dts";
+import { useEffect } from 'react';
 
 interface SEOHeadProps {
     title?: string;
@@ -8,93 +7,131 @@ interface SEOHeadProps {
     ogImage?: string;
     ogUrl?: string;
     author?: string;
-    structuredData?: WithContext<Person | ProfessionalService>;
+    structuredData?: Record<string, any>;
 }
 
 export default function SEOHead({
-    title =
-    "Hire Samir Shaikh | Freelance Full-Stack, AI & Backend Developer (Node.js, MERN, APIs)",
-
-    description =
-    "Hire a trusted freelance Full-Stack & Backend Developer specializing in Node.js, MERN stack, secure REST & GraphQL APIs, AI chatbot integration, and scalable microservices. Helping startups and enterprises build production-ready SaaS platforms for US, India, and Middle East clients.",
-
-    keywords =
-    "Hire Node.js Developer, Freelance Backend Developer, Freelance Full-Stack Developer, MERN Stack Consultant, API Development Expert, Microservices Architecture, AI Chatbot Developer, Secure Web Application Development, SaaS Backend Development, Database Optimization, Remote Software Developer, Tech Consultant US Middle East India, Samir Shaikh Portfolio",
-
-    ogImage =
-    "/img/samir-profile-image.jpg",
-
-    ogUrl =
-    "https://github.com/ShaikhSamir786",
-
-    author =
-    "Samir Shaikh",
-
+    title = "Hire Samir Shaikh | Freelance Full-Stack, AI & Backend Developer (Node.js, MERN, APIs)",
+    description = "Hire a trusted freelance Full-Stack & Backend Developer specializing in Node.js, MERN stack, secure REST & GraphQL APIs, AI chatbot integration, and scalable microservices. Helping startups and enterprises build production-ready SaaS platforms for US, India, and Middle East clients.",
+    keywords = "Hire Node.js Developer, Freelance Backend Developer, Freelance Full-Stack Developer, MERN Stack Consultant, API Development Expert, Microservices Architecture, AI Chatbot Developer, Secure Web Application Development, SaaS Backend Development, Database Optimization, Remote Software Developer, Tech Consultant US Middle East India, Samir Shaikh Portfolio",
+    ogImage = "/img/samir-profile-image.jpg",
+    ogUrl = "https://github.com/ShaikhSamir786",
+    author = "Samir Shaikh",
     structuredData,
 }: SEOHeadProps) {
-    return (
-        <Helmet>
-            {/* Primary Meta Tags */}
-            <title>{title}</title>
-            <meta name="title" content={title} />
-            <meta name="description" content={description} />
-            <meta name="keywords" content={keywords} />
-            <meta name="author" content="Samir Shaikh" />
-            <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    useEffect(() => {
+        // Set document title
+        document.title = title;
 
-            {/* Canonical */}
-            <link rel="canonical" href={ogUrl} />
+        // Helper function to set or update meta tags
+        const setMetaTag = (attribute: string, key: string, content: string) => {
+            let element = document.querySelector(`meta[${attribute}="${key}"]`);
+            if (!element) {
+                element = document.createElement('meta');
+                element.setAttribute(attribute, key);
+                document.head.appendChild(element);
+            }
+            element.setAttribute('content', content);
+        };
 
-            {/* Geographic Meta Tags */}
-            <meta name="geo.region" content="US-IN-AE-SA-QA-OM-KW-CA-MA" />
-            <meta name="geo.placename" content="Worldwide, Remote, United States, India, Middle East, Bahrain, Qatar, Oman, Kuwait, Saudi Arabia, Surat, Gujarat, Maharashtra, Bangalore, Karnataka, Hyderabad, Telangana , Vadodara, Ahmedabad, Vapi, Rajkot, Valsad " />
+        // Helper function to set or update link tags
+        const setLinkTag = (rel: string, href: string) => {
+            let element = document.querySelector(`link[rel="${rel}"]`);
+            if (!element) {
+                element = document.createElement('link');
+                element.setAttribute('rel', rel);
+                document.head.appendChild(element);
+            }
+            element.setAttribute('href', href);
+        };
 
-            {/* Open Graph / Profile */}
-            <meta property="og:type" content="profile" />
-            <meta property="og:url" content={ogUrl} />
-            <meta property="og:title" content={title} />
-            <meta property="og:description" content={description} />
-            <meta property="og:image" content={ogImage} />
-            <meta property="og:image:alt" content="Samir Shaikh – Freelance Full-Stack & AI Developer" />
-            <meta property="profile:first_name" content="Samir" />
-            <meta property="profile:last_name" content="Shaikh" />
-            <meta property="profile:username" content="ShaikhSamir786" />
+        // Primary Meta Tags
+        setMetaTag('name', 'title', title);
+        setMetaTag('name', 'description', description);
+        setMetaTag('name', 'keywords', keywords);
+        setMetaTag('name', 'author', author);
+        setMetaTag('name', 'robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
 
-            {/* Social Profile Links (Authority Signals) */}
-            <meta property="og:see_also" content="https://github.com/ShaikhSamir786" />
-            <meta property="og:see_also" content="https://www.linkedin.com/in/samir-shaikh-760b932a8/" />
+        // Geographic Meta Tags
+        setMetaTag('name', 'geo.region', 'US-IN-AE-SA-QA-OM-KW-CA-MA');
+        setMetaTag('name', 'geo.placename', 'Worldwide, Remote, United States, India, Middle East, Bahrain, Qatar, Oman, Kuwait, Saudi Arabia, Surat, Gujarat, Maharashtra, Bangalore, Karnataka, Hyderabad, Telangana , Vadodara, Ahmedabad, Vapi, Rajkot, Valsad ');
 
-            {/* Twitter / X */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:url" content={ogUrl} />
-            <meta name="twitter:title" content={title} />
-            <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content={ogImage} />
-            <meta name="twitter:image:alt" content="Samir Shaikh – Freelance Backend, AI & Full-Stack Developer" />
+        // Open Graph / Profile
+        setMetaTag('property', 'og:type', 'profile');
+        setMetaTag('property', 'og:url', ogUrl);
+        setMetaTag('property', 'og:title', title);
+        setMetaTag('property', 'og:description', description);
+        setMetaTag('property', 'og:image', ogImage);
+        setMetaTag('property', 'og:image:alt', 'Samir Shaikh – Freelance Full-Stack & AI Developer');
+        setMetaTag('property', 'profile:first_name', 'Samir');
+        setMetaTag('property', 'profile:last_name', 'Shaikh');
+        setMetaTag('property', 'profile:username', 'ShaikhSamir786');
 
-            {/* LinkedIn Specific (works via Open Graph) */}
-            <meta property="article:author" content="https://www.linkedin.com/in/samir-shaikh-760b932a8/" />
+        // Social Profile Links
+        const ogSeeAlsoLinks = [
+            'https://github.com/ShaikhSamir786',
+            'https://www.linkedin.com/in/samir-shaikh-760b932a8/'
+        ];
 
-            {/* GitHub Profile Verification */}
-            <link rel="me" href="https://github.com/ShaikhSamir786" />
-            <link rel="me" href="https://www.linkedin.com/in/samir-shaikh-760b932a8/" />
+        // Remove existing og:see_also tags
+        document.querySelectorAll('meta[property="og:see_also"]').forEach(el => el.remove());
 
-            {/* Structured Data */}
-            {structuredData && (
-                <script type="application/ld+json">
-                    {JSON.stringify(structuredData)}
-                </script>
-            )}
-        </Helmet>
+        // Add new og:see_also tags
+        ogSeeAlsoLinks.forEach(link => {
+            const meta = document.createElement('meta');
+            meta.setAttribute('property', 'og:see_also');
+            meta.setAttribute('content', link);
+            document.head.appendChild(meta);
+        });
 
-    );
+        // Twitter / X
+        setMetaTag('name', 'twitter:card', 'summary_large_image');
+        setMetaTag('name', 'twitter:url', ogUrl);
+        setMetaTag('name', 'twitter:title', title);
+        setMetaTag('name', 'twitter:description', description);
+        setMetaTag('name', 'twitter:image', ogImage);
+        setMetaTag('name', 'twitter:image:alt', 'Samir Shaikh – Freelance Backend, AI & Full-Stack Developer');
+
+        // LinkedIn Specific
+        setMetaTag('property', 'article:author', 'https://www.linkedin.com/in/samir-shaikh-760b932a8/');
+
+        // Canonical
+        setLinkTag('canonical', ogUrl);
+
+        // GitHub Profile Verification
+        const meLinks = [
+            'https://github.com/ShaikhSamir786',
+            'https://www.linkedin.com/in/samir-shaikh-760b932a8/'
+        ];
+
+        // Remove existing rel="me" tags
+        document.querySelectorAll('link[rel="me"]').forEach(el => el.remove());
+
+        // Add new rel="me" tags
+        meLinks.forEach(link => {
+            const linkEl = document.createElement('link');
+            linkEl.setAttribute('rel', 'me');
+            linkEl.setAttribute('href', link);
+            document.head.appendChild(linkEl);
+        });
+
+        // Structured Data
+        if (structuredData) {
+            let script = document.querySelector('script[type="application/ld+json"]');
+            if (!script) {
+                script = document.createElement('script');
+                script.setAttribute('type', 'application/ld+json');
+                document.head.appendChild(script);
+            }
+            script.textContent = JSON.stringify(structuredData);
+        }
+    }, [title, description, keywords, ogImage, ogUrl, author, structuredData]);
+
+    return null;
 }
 
-// Export HelmetProvider for use in main.tsx
-export { HelmetProvider };
-
 // Default structured data for the portfolio
-export const defaultStructuredData: WithContext<Person | ProfessionalService> = {
+export const defaultStructuredData = {
     "@context": "https://schema.org",
     "@graph": [
         {
@@ -130,7 +167,6 @@ export const defaultStructuredData: WithContext<Person | ProfessionalService> = 
                 "Retrieval-Augmented Generation (RAG) Systems",
                 "Performance Optimization and Technical SEO"
             ]
-
         },
         {
             "@type": "ProfessionalService",
@@ -148,116 +184,29 @@ export const defaultStructuredData: WithContext<Person | ProfessionalService> = 
                 }
             },
             "areaServed": [
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Worldwide",
-                    "description": "Remote freelance software development services available globally"
-                },
-                {
-                    "@type": "Country",
-                    "name": "India"
-                },
-                {
-                    "@type": "Country",
-                    "name": "United States"
-                },
-                {
-                    "@type": "Country",
-                    "name": "United Arab Emirates"
-                },
-                {
-                    "@type": "Country",
-                    "name": "Saudi Arabia"
-                },
-                {
-                    "@type": "Country",
-                    "name": "Qatar"
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Middle East"
-                },
-
-                /* India – States */
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Maharashtra",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Gujarat",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Karnataka",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Tamil Nadu",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Kerala",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "West Bengal",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Haryana",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Uttar Pradesh",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Rajasthan",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-                {
-                    "@type": "AdministrativeArea",
-                    "name": "Madhya Pradesh",
-                    "containedInPlace": { "@type": "Country", "name": "India" }
-                },
-
-                /* Major Cities */
-                {
-                    "@type": "City",
-                    "name": "Surat",
-                    "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" }
-                },
-                {
-                    "@type": "City",
-                    "name": "Ahmedabad",
-                    "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" }
-                },
-                {
-                    "@type": "City",
-                    "name": "Vadodara",
-                    "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" }
-                },
-                {
-                    "@type": "City",
-                    "name": "Noida",
-                    "containedInPlace": { "@type": "AdministrativeArea", "name": "Uttar Pradesh" }
-                },
-                {
-                    "@type": "City",
-                    "name": "Vapi",
-                    "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" }
-                }
+                { "@type": "AdministrativeArea", "name": "Worldwide", "description": "Remote freelance software development services available globally" },
+                { "@type": "Country", "name": "India" },
+                { "@type": "Country", "name": "United States" },
+                { "@type": "Country", "name": "United Arab Emirates" },
+                { "@type": "Country", "name": "Saudi Arabia" },
+                { "@type": "Country", "name": "Qatar" },
+                { "@type": "AdministrativeArea", "name": "Middle East" },
+                { "@type": "AdministrativeArea", "name": "Maharashtra", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Gujarat", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Karnataka", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Tamil Nadu", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Kerala", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "West Bengal", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Haryana", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Uttar Pradesh", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Rajasthan", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "AdministrativeArea", "name": "Madhya Pradesh", "containedInPlace": { "@type": "Country", "name": "India" } },
+                { "@type": "City", "name": "Surat", "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" } },
+                { "@type": "City", "name": "Ahmedabad", "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" } },
+                { "@type": "City", "name": "Vadodara", "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" } },
+                { "@type": "City", "name": "Noida", "containedInPlace": { "@type": "AdministrativeArea", "name": "Uttar Pradesh" } },
+                { "@type": "City", "name": "Vapi", "containedInPlace": { "@type": "AdministrativeArea", "name": "Gujarat" } }
             ],
-
             "hasOfferCatalog": {
                 "@type": "OfferCatalog",
                 "name": "Freelance Software Development, AI & Cyber Security Services",
@@ -352,7 +301,6 @@ export const defaultStructuredData: WithContext<Person | ProfessionalService> = 
                     }
                 ]
             }
-
-        },
-    ],
+        }
+    ]
 };
