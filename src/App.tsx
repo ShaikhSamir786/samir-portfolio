@@ -9,6 +9,7 @@ import TerminalEasterEgg from "@/components/terminal/TerminalEasterEgg";
 import SecretFeatureHint from "@/components/terminal/SecretFeatureHint";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
+import AIChatbot from "@/components/chat/AIChatbot";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
       <SmoothScroll />
       <TerminalEasterEgg />
       <SecretFeatureHint />
+      <AIChatbot />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
