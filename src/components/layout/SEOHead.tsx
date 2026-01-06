@@ -14,7 +14,7 @@ export default function SEOHead({
     title = "Hire Samir Shaikh | Freelance Full-Stack, AI & Backend Developer (Node.js, MERN, APIs)",
     description = "Hire a trusted freelance Full-Stack & Backend Developer specializing in Node.js, MERN stack, secure REST & GraphQL APIs, AI chatbot integration, and scalable microservices. Helping startups and enterprises build production-ready SaaS platforms for US, India, and Middle East clients.",
     keywords = "Hire Node.js Developer, Freelance Backend Developer, Freelance Full-Stack Developer, MERN Stack Consultant, API Development Expert, Microservices Architecture, AI Chatbot Developer, Secure Web Application Development, SaaS Backend Development, Database Optimization, Remote Software Developer, Tech Consultant US Middle East India, Samir Shaikh Portfolio",
-    ogImage = "/img/samir-profile-image.jpg",
+    ogImage = "https://samir-portfolio-mauve.vercel.app/img/samir-profile-image.jpg",
     ogUrl = "https://github.com/ShaikhSamir786",
     author = "Samir Shaikh",
     structuredData,
@@ -174,7 +174,7 @@ export const defaultStructuredData = {
             "name": "Samir Shaikh – Freelance Full-Stack, AI & Backend Development Services",
             "description": "Professional freelance services specializing in full-stack web development, scalable Node.js backend systems, MERN stack applications, secure API development, AI chatbot integration, and cloud-ready architectures for startups and enterprises worldwide.",
             "url": "https://github.com/ShaikhSamir786",
-            "image": "img/samir-profile-image.jpg",
+            "image": "https://samir-portfolio-mauve.vercel.app/img/samir-profile-image.jpg",
             "priceRange": "$$$",
             "availableChannel": {
                 "@type": "ServiceChannel",
