@@ -217,9 +217,9 @@ export default function Experience() {
           className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { value: "7+", label: "Years Experience" },
-            { value: "50+", label: "Projects Delivered" },
-            { value: "4", label: "Companies" },
+            { value: "1+", label: "Years Experience" },
+            { value: "2+", label: "Projects Delivered" },
+            { value: "1", label: "Companies" },
             { value: "100%", label: "Remote Ready" },
           ].map((stat, index) => (
             <div
