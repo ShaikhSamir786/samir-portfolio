@@ -73,7 +73,7 @@ export default function Hero() {
             Get In Touch
           </a>
           <a
-            href="/resume/Samir_Shaikh_Resume.pdf"
+            href="/resume/Samir_Shaikh_IT.pdf"
             download="Samir_Shaikh_Resume.pdf"
             className="btn-brutal-outline inline-flex items-center gap-2"
           >

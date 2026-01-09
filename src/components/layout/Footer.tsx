@@ -72,7 +72,7 @@ export default function Footer() {
             </div>
             {/* Resume Download Button */}
             <a
-              href="/resume/Samir_Shaikh_Resume.pdf"
+              href="/resume/Samir_Shaikh_IT.pdf"
               download="Samir_Shaikh_Resume.pdf"
               className="inline-flex items-center gap-2 px-4 py-2 border-2 border-primary bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all font-mono text-sm"
             >
