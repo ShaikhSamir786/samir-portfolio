@@ -19,12 +19,12 @@ const INITIAL_MESSAGE: Message = {
 
 const SAMPLE_RESPONSES: Record<string, string> = {
   skills: "Samir specializes in backend development with Node.js, Python, and Go. He's proficient in PostgreSQL, Redis, Kafka, and has extensive experience with cloud platforms like AWS and GCP. On the frontend, he works with React, TypeScript, and Next.js.",
-  experience: "Samir has 7+ years of experience, currently working as a Senior Backend Engineer at TechScale Inc. He's previously worked at StartupHub, DataFlow Systems, and WebAgency Pro, progressively growing from junior developer to senior engineer.",
+  experience: "Samir has 1+ years of experience, currently working as a Senior Backend Engineer at TechScale Inc. He's previously worked at StartupHub, DataFlow Systems, and WebAgency Pro, progressively growing from junior developer to senior engineer.",
   projects: "Some notable projects include: AuthFlow Pro (authentication microservice), DataPipe Engine (real-time data processing), and CloudScale API (serverless API gateway). All projects demonstrate his expertise in building scalable, production-ready systems.",
   contact: "The best way to reach Samir is through the contact form on this website, or connect with him on LinkedIn or GitHub. He typically responds within 24 hours.",
   availability: "Samir is currently available for freelance projects and consulting work. He's open to both short-term and long-term engagements, especially in backend architecture and API development.",
   default: "I'd be happy to help you learn more about Samir! You can ask about his skills, experience, projects, availability, or how to get in touch. What would you like to know?",
-  profile: "Samir is a passionate software engineer with over 7 years of experience in building scalable, production-ready systems. He's currently working as a  Backend Engineer at logicwind Inc."
+  profile: "Samir is a passionate software engineer with over 1+ years of experience in building scalable, production-ready systems. He's currently working as a  Backend Engineer at logicwind Inc."
 };
 
 function getResponse(message: string): string {
@@ -67,8 +67,8 @@ function ChatMessage({ message }: { message: Message }) {
       </div>
       <div
         className={`max-w-[80%] p-3 font-mono text-sm ${isUser
-            ? "bg-primary text-primary-foreground"
-            : "bg-muted text-foreground border-2 border-primary/30"
+          ? "bg-primary text-primary-foreground"
+          : "bg-muted text-foreground border-2 border-primary/30"
           }`}
       >
         {message.content}
