@@ -33,7 +33,6 @@ export default function SEOHead({
             }
             element.setAttribute('content', content);
         };
-
         // Helper function to set or update link tags
         const setLinkTag = (rel: string, href: string) => {
             let element = document.querySelector(`link[rel="${rel}"]`);
