@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero";
 import MetricsDashboard from "@/components/sections/MetricsDashboard";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
+import Certificates from "@/components/sections/Certificates";
 import Architecture from "@/components/sections/Architecture";
 import Skills from "@/components/sections/Skills";
 import Contact from "@/components/sections/Contact";
@@ -18,6 +19,7 @@ const Index = () => {
         <MetricsDashboard />
         <Experience />
         <Projects />
+        <Certificates />
         <Architecture />
         <Skills />
         <Contact />

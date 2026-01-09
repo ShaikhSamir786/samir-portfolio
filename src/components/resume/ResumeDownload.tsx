@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, FileText, Loader2, Check, Code, Briefcase, GraduationCap, X } from "lucide-react";
+import { generateResumePDF } from "@/utils/generateResumePDF";
 
 interface ResumeSection {
   id: string;
@@ -58,26 +59,21 @@ export default function ResumeDownload() {
     setIsGenerating(true);
     setIsComplete(false);
 
-    // Simulate PDF generation
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simulate generation delay for UX
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Create resume content
-    const resumeContent = generateResumeText(sections.filter(s => s.enabled).map(s => s.id));
-
-    // Create and download the file
-    const blob = new Blob([resumeContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "samir-resume.txt";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-
-    setIsGenerating(false);
-    setIsComplete(true);
-    setTimeout(() => setIsComplete(false), 3000);
+    try {
+      // Generate PDF with enabled sections
+      const enabledSections = sections.filter(s => s.enabled).map(s => s.id);
+      generateResumePDF({ enabledSections });
+      
+      setIsComplete(true);
+      setTimeout(() => setIsComplete(false), 3000);
+    } catch (error) {
+      console.error("Failed to generate PDF:", error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -170,7 +166,7 @@ export default function ResumeDownload() {
             </motion.button>
 
             <p className="mt-4 text-xs font-mono text-muted-foreground text-center">
-              Generated dynamically with latest information
+              Generated as PDF with latest information
             </p>
           </motion.div>
         ) : (
@@ -206,94 +202,4 @@ export default function ResumeDownload() {
       </AnimatePresence>
     </div>
   );
-}
-
-function generateResumeText(enabledSections: string[]): string {
-  const sections: Record<string, string> = {
-    summary: `
-================================================================================
-                              SAMIR - BACKEND ENGINEER
-================================================================================
-
-PROFESSIONAL SUMMARY
---------------------
-Senior Backend Engineer with 7+ years of experience building scalable, 
-high-performance systems. Specialized in microservices architecture, 
-distributed systems, and API development. Proven track record of reducing 
-latency, improving system reliability, and mentoring development teams.
-
-Contact: hello@samir.dev | GitHub: github.com/samir | LinkedIn: linkedin.com/in/samir
-`,
-    experience: `
-WORK EXPERIENCE
----------------
-
-SENIOR BACKEND ENGINEER | TechScale Inc. | 2023 - Present
-• Led backend architecture for microservices handling 10M+ daily requests
-• Reduced API latency by 60% through Redis caching strategies
-• Designed event-driven architecture using Kafka
-• Mentored team of 5 junior developers
-Technologies: Node.js, PostgreSQL, Redis, Kafka, Kubernetes
-
-FULL STACK DEVELOPER | StartupHub | 2021 - 2023
-• Launched 3 production applications serving 50k+ users
-• Implemented CI/CD pipelines reducing deployment time by 80%
-• Integrated payment systems processing $2M+ monthly
-Technologies: React, TypeScript, Python, AWS, Docker
-
-BACKEND DEVELOPER | DataFlow Systems | 2019 - 2021
-• Built ETL pipelines processing 1TB+ daily data
-• Optimized database queries improving performance by 40%
-• Developed internal tooling used by 200+ employees
-Technologies: Python, Django, PostgreSQL, Elasticsearch, RabbitMQ
-
-JUNIOR DEVELOPER | WebAgency Pro | 2017 - 2019
-• Delivered 20+ client projects on time and budget
-• Transitioned from frontend to full-stack development
-Technologies: JavaScript, PHP, MySQL, WordPress
-`,
-    skills: `
-TECHNICAL SKILLS
-----------------
-
-Languages:        JavaScript/TypeScript, Python, Go, PHP, SQL
-Backend:          Node.js, Express, Fastify, Django, Flask
-Databases:        PostgreSQL, MongoDB, Redis, Elasticsearch
-Message Queues:   Kafka, RabbitMQ, AWS SQS
-Cloud & DevOps:   AWS, GCP, Docker, Kubernetes, Terraform
-Frontend:         React, Next.js, Vue.js, Tailwind CSS
-Tools:            Git, GitHub Actions, Jenkins, Grafana, Prometheus
-`,
-    projects: `
-FEATURED PROJECTS
------------------
-
-AUTHFLOW PRO - Authentication Microservice
-Enterprise-grade auth service with OAuth2, JWT, and multi-tenant support.
-Tech: Node.js, PostgreSQL, Redis | Stars: 1.2k | Used by 50+ companies
-
-DATAPIPE ENGINE - Real-time Data Processing
-High-throughput data pipeline handling 100k+ events/second.
-Tech: Python, Kafka, ClickHouse | Processing: 1TB+ daily
-
-CLOUDSCALE API - Serverless API Gateway
-Auto-scaling API gateway with rate limiting and caching.
-Tech: Go, AWS Lambda, DynamoDB | Requests: 10M+ monthly
-`,
-  };
-
-  let resume = "";
-  enabledSections.forEach(sectionId => {
-    if (sections[sectionId]) {
-      resume += sections[sectionId];
-    }
-  });
-
-  resume += `
-================================================================================
-                         Generated on ${new Date().toLocaleDateString()}
-================================================================================
-`;
-
-  return resume;
 }
