@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Suspense, lazy } from "react";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Download } from "lucide-react";
 
 const FloatingTerminal = lazy(() => import("../three/FloatingTerminal"));
 
@@ -71,6 +71,14 @@ export default function Hero() {
           </a>
           <a href="#contact" className="btn-brutal-outline">
             Get In Touch
+          </a>
+          <a
+            href="/resume/Samir_Shaikh_Resume.pdf"
+            download="Samir_Shaikh_Resume.pdf"
+            className="btn-brutal-outline inline-flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Download Resume
           </a>
         </motion.div>
 

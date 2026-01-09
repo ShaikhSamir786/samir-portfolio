@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Terminal, Github, Linkedin, Twitter, Heart } from "lucide-react";
+import { Terminal, Github, Linkedin, Download } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -46,28 +46,39 @@ export default function Footer() {
             ))}
           </motion.div>
 
-          {/* Social Links */}
+          {/* Social Links & Resume Download */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="flex justify-center md:justify-end gap-4"
+            className="flex flex-col items-center md:items-end gap-4"
           >
-            {[
-              { icon: Github, href: "https://github.com/ShaikhSamir786" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/samir-shaikh-760b932a8/" },
-            ].map(({ icon: Icon, href }) => (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 border-2 border-muted hover:border-primary hover:text-primary transition-colors"
-              >
-                <Icon className="w-4 h-4" />
-              </a>
-            ))}
+            <div className="flex justify-center md:justify-end gap-4">
+              {[
+                { icon: Github, href: "https://github.com/ShaikhSamir786" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/samir-shaikh-760b932a8/" },
+              ].map(({ icon: Icon, href }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 border-2 border-muted hover:border-primary hover:text-primary transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+            {/* Resume Download Button */}
+            <a
+              href="/resume/Samir_Shaikh_Resume.pdf"
+              download="Samir_Shaikh_Resume.pdf"
+              className="inline-flex items-center gap-2 px-4 py-2 border-2 border-primary bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all font-mono text-sm"
+            >
+              <Download className="w-4 h-4" />
+              Download Resume
+            </a>
           </motion.div>
         </div>
 
